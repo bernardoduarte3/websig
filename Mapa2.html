@@ -240,9 +240,9 @@
 
 		// var popup = '<h3>' + hotspots[i].name + '</h3>'
 		// Load power plants
-		L.geoJson(casos, {
+		Casos_23_1 = L.geoJson(casos, {
 			filter: function (feature) {
-				if (feature.properties.POP_2018) { // This test to see if the key exits
+				if (feature.properties.Casos_23_1) { // This test to see if the key exits
 					return feature;
 				}
 			},
@@ -252,13 +252,13 @@
 					weight: 1,
 					fillColor: 'blue',
 					fillOpacity: 0.3,
-					radius: getRadius(feature.properties.POP_2018)
+					radius: getRadius(feature.properties.Casos_23_1)
 				});
 			},
 			onEachFeature: function (feature, layer) {
 				var popup =
-					'<p><b>' + layer.feature.properties.Concelho + '</b></p>' +
-					'<p>Max capacity: ' + layer.feature.properties.POP_2018 + ' MW</p>' +
+					'<p><b>Concelho' + layer.feature.properties.Concelho + '</b></p>' +
+					'<p>N.º Casos: ' + layer.feature.properties.Casos_23_1 + ' MW</p>' +
 					
 
 				layer.on('mouseover', function () {
@@ -284,7 +284,7 @@
 
 		function getRadius(area) {
 			var radius = Math.sqrt(area / Math.PI);
-			return radius * 0.15;
+			return radius * 2;
 		};
 	</script>
 
