@@ -162,7 +162,7 @@
 <body>
 
 	<header>
-		<h1>Número de Casos Covid-19</h1>
+		
 	</header>
 	<div id="map"></div>			
 	
@@ -172,7 +172,7 @@
 	<script>
 		// map options
 		var options = {
-			center: [39.7, -8.0],
+			center: [39.696927, -7.729808],
 			zoom: 6
 		}
 
@@ -209,9 +209,9 @@
 			},
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, {
-					color: 'darkblue',
+					color: 'blue',
 					weight: 1,
-					fillColor: 'blue',
+					fillColor: 'cyan',
 					fillOpacity: 0.3,
 					radius: getRadius(feature.properties.Casos_14_1)
 				});
@@ -232,7 +232,7 @@
 
 				layer.on('mouseout', function () {
 					layer.setStyle({
-						fillColor: 'blue',
+						fillColor: 'cyan',
 						fillOpacity: 0.3
 					});
 					layer.bindPopup(popup).closePopup();
