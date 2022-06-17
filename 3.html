@@ -162,7 +162,7 @@
 <body>
 
 	<header>
-		<h1>Número de Casos Covid-19</h1>
+		
 	</header>
 
 	<div id="map"></div>
@@ -211,9 +211,9 @@
 			},
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, {
-					color: 'darkblue',
+					color: 'darkorange',
 					weight: 1,
-					fillColor: 'blue',
+					fillColor: 'orange',
 					fillOpacity: 0.3,
 					radius: getRadius(feature.properties.Casos_23_1)
 				});
