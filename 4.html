@@ -67,7 +67,7 @@
 		// Load power plants
 		Casos_14_1 = L.geoJson(casos, {
 			filter: function (feature) {
-				if (feature.properties.Casos_23_1) { // This test to see if the key exits
+				if (feature.properties.Casos_14_1) { // This test to see if the key exits
 					return feature;
 				}
 			},
@@ -83,7 +83,7 @@
 			onEachFeature: function (feature, layer) {
 				var popup =
 					'<p><b>Concelho' + layer.feature.properties.Concelho + '</b></p>' +
-					'<p>N.º Casos: ' + layer.feature.properties.Casos_23_1 + ' MW</p>' +
+					'<p>N.º Casos: ' + layer.feature.properties.Casos_14_1 + ' MW</p>' +
 					
 
 				layer.on('mouseover', function () {
