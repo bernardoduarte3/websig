@@ -44,6 +44,14 @@
 
 		// create a Leaflet map in our division container with id of 'map'
 		var map = L.map('map', options);
+		
+		var north = L.control({position: "topright"});
+    north.onAdd = function(map) {
+            var div = L.DomUtil.create();
+            div.innerHTML = '<img src="branco.png"; style = "float: right; width: 10%;heigth: 10%">';
+            return div;
+    }
+    north.addTo(map);
 
 		// Leaflet providers base map URL
 		var basemap_source =
