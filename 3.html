@@ -3,14 +3,14 @@
 
 <head>
 	<meta charset=utf-8 />
-    <title>Casos COVID19/concelho 23/01</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+	<title>Casos Covid-19</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
-	<style>
-    html, body {
+<style>
+	html, body {
             height: 100%;
             margin: 0;
         }
@@ -18,15 +18,39 @@
             width: 100%;
             height: 100%;
         }
-       
-        </style>
-
+		.info h4 {
+	    margin: 0 0 5px;
+	    color: #777;
+	}
+	.legend {
+	    text-align: left;
+	    line-height: 18px;
+	    color: #555;
+	}
+	.legend i {
+	    width: 18px;
+	    height: 18px;
+	    float: left;
+	    margin-right: 8px;
+	    opacity: 0.9;
+	}
+	.legend .colorcircle {
+	    border-radius: 50%;
+	    width: 20px;
+	    height: 20px;
+	    margin-top: 20px;
+	}
+	.legend .circlepadding {
+	    border-radius: 50%;
+	    margin-top: 0px;
+	    background: rgba(63, 90, 12, 0);
+	}
+		</style>	
 </head>
 
 <body>
 
 	<header>
-		
 	</header>
 
 	<div id="map"></div>
@@ -38,7 +62,7 @@
 	<script>
 		// map options
 		var options = {
-			center: [39.696927, -7.729808],
+			center: [39.7, -8.0],
 			zoom: 6
 		}
 
@@ -46,26 +70,24 @@
 		var map = L.map('map', options);
 		
 		L.control.scale({position:'bottomleft', metric: true}).addTo(map);
-		
-		var north = L.control({position: "topright"});
-    north.onAdd = function(map) {
-            var div = L.DomUtil.create();
-            div.innerHTML = '<img src="branco.png"; style = "float: right; width: 10%;heigth: 10%">';
-            return div;
-    }
-    north.addTo(map);
 
+		var north = L.control({position: "topright"});
+		north.onAdd = function(map) {
+    		var div = L.DomUtil.create();
+   	 	div.innerHTML = '<img src="branco.png"; style = "float: right; width: 8%;heigth: 8%">';
+   		 return div;
+		}
+		north.addTo(map);
 		// Leaflet providers base map URL
 		var basemap_source =
 			'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_all/{z}/{x}/{y}.png'
-		
+
 		// Leaflet providers attributes
 		var basemap_options = {
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 			subdomains: 'abcd',
-			maxZoom: 19
+			maxZoom: 16
 		};
-
 
 		// request some basemap tiles and add to the map
 		var tiles = L.tileLayer(basemap_source, basemap_options).addTo(map);
@@ -73,10 +95,38 @@
 		casos.features.sort(function (a, b) {
 			return b.properties.capacity_mw - a.properties.capacity_mw;
 		});
-
-
+		
+		map.attributionControl.addAttribution('Número de casos: &copy; <a href="https://covid19.min-saude.pt/">Direção-Geral da Saúde</a>');
+		
+		//create circle size legend
+		var sizelegend = L.control({
+		    position: 'bottomright'
+		});
+		//generate legend contents
+		sizelegend.onAdd = function (map) {
+			//set up legend grades and labels
+		    var div = L.DomUtil.create('div', 'info legend'),
+			grades = [10, 25, 50, 100],
+			labels = ['<strong>Nº de casos</strong>'],
+			from, to;
+		    //iterate through grades and create a scaled circle and label for each
+		    for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+			labels.push(
+			'<i class="circlepadding" style="width: '+Math.max(0,(19-1.8*getRadius(from)))
+			+'px;"></i> <i style="background: darkblue; width: '+getRadius(from)*2
+			+'px; height: '+getRadius(from)*2
+			+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(from)))+'px;"></i> ' 
+			+ from);
+		    }
+		    div.innerHTML = labels.join('<br>');
+		    return div;
+		};
+		sizelegend.addTo(map);
+		
 		// var popup = '<h3>' + hotspots[i].name + '</h3>'
-		// Load power plants
+			// Load power plants
 		Casos_23_1 = L.geoJson(casos, {
 			filter: function (feature) {
 				if (feature.properties.Casos_23_1) { // This test to see if the key exits
