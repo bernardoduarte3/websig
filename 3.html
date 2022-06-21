@@ -15,11 +15,38 @@
 		html, body {
             height: 100%;
             margin: 0;
-        }
+        }	
         #map {
             width: 100%;
             height: 100%;
         }
+        .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
+    .legend {
+        text-align: left;
+        line-height: 18px;
+        color: #555;
+    }
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.9;
+    }
+    .legend .colorcircle {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: 20px;
+    }
+    .legend .circlepadding {
+        border-radius: 50%;
+        margin-top: 0px;
+        background: rgba(63, 90, 12, 0);
+    }
 	</style>
 </head>
 
@@ -74,7 +101,32 @@
 			return b.properties.capacity_mw - a.properties.capacity_mw;
 		});
 
-
+//create circle size legend
+        var sizelegend = L.control({
+            position: 'bottomright'
+        });
+        //generate legend contents
+        sizelegend.onAdd = function (map) {
+            //set up legend grades and labels
+            var div = L.DomUtil.create('div', 'info legend'),
+            grades = [10, 25, 50, 100],
+            labels = ['<strong>Nº de casos</strong>'],
+            from, to;
+            //iterate through grades and create a scaled circle and label for each
+            for (var i = 0; i < grades.length; i++) {
+            from = grades[i];
+            to = grades[i + 1];
+            labels.push(
+            '<i class="circlepadding" style="width: '+Math.max(0,(19-1.8getRadius(from)))
+            +'px;"></i> <i style="background: #3f5a0c; width: '+getRadius(from)2
+            +'px; height: '+getRadius(from)*2
+            +'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(from)))+'px;"></i> ' 
+            + from);
+            }
+            div.innerHTML = labels.join('<br>');
+            return div;
+        };
+        sizelegend.addTo(map);
 
 		// var popup = '<h3>' + hotspots[i].name + '</h3>'
 		// Load power plants
