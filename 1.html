@@ -1,6 +1,6 @@
 <html><head>
 	
-	<title>Mapa 1 do trabalho de WebSIG</title>
+	<title>Mapa 3 do trabalho de WebSIG</title>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,8 +34,8 @@
 
 	var map = L.map('map').setView([39.696927, -7.729808], 6);
 
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_all/{z}/{x}/{y}.png', {
-	attribution: 
+       L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/dark_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
          }).addTo(map);
 	
 	L.control.scale({position:'bottomleft', metric: true}).addTo(map);
@@ -68,15 +68,15 @@
 
 	// get color depending on population density value
 	function getColor(d) {
-		return d > 30 ? '#800026' :
-				d > 17  ? '#BD0026' :
-				d > 10  ? '#E31A1C' :
-				d > 5  ? '#FC4E2A' :
-				d > 3   ? '#FD8D3C' :
-				d > 2   ? '#FEB24C' :
-				d > 1   ? '#FED976' :
-				d > 0   ? '#FFEDA0' :
-				d = 0   ? '#000000' :
+		return d > 30 ? '#28025e' :
+				d > 17  ? '#090269' :
+				d > 10  ? '#0f04b3' :
+				d > 5  ? '#1c0fd1' :
+				d > 3   ? '#7878f0' :
+				d > 2   ? '#78a4f0' :
+				d > 1   ? '#78daf0' :
+				d > 0   ? '#78f0db' :
+				d = 0   ? '#beede5' :
 							'#030008';
 	}
 
@@ -161,8 +161,7 @@
 
 </script>
 
-	
-	
+
 
 
 </body></html>
