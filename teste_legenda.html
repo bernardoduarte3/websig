@@ -126,8 +126,8 @@
 		sizelegend.addTo(map);
 		
 		// var popup = '<h3>' + hotspots[i].name + '</h3>'
-		// Load power plants
-		L.geoJson(casos, {
+			// Load power plants
+		Casos_23_1 = L.geoJson(casos, {
 			filter: function (feature) {
 				if (feature.properties.Casos_23_1) { // This test to see if the key exits
 					return feature;
@@ -135,18 +135,19 @@
 			},
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, {
-					color: '#3f5a0c',
+					color: 'darkblue',
 					weight: 1,
-					fillColor: '#3f5a0c',
+					fillColor: 'cyan',
 					fillOpacity: 0.3,
 					radius: getRadius(feature.properties.Casos_23_1)
 				});
 			},
 			onEachFeature: function (feature, layer) {
 				var popup =
-					'<p><b>Concelho: ' + layer.feature.properties.Concelho + '</b></p>' +
-					'<p>Casos: ' + layer.feature.properties.Casos_23_1 + ' </p>' 
+					'<p><b>Concelho' + layer.feature.properties.Concelho + '</b></p>' +
+					'<p>N.º Casos: ' + layer.feature.properties.Casos_23_1 + ' casos</p>' +
 					
+
 				layer.on('mouseover', function () {
 					layer.bindPopup(popup).openPopup();
 					layer.setStyle({
@@ -157,7 +158,7 @@
 
 				layer.on('mouseout', function () {
 					layer.setStyle({
-						fillColor: '#3f5a0c',
+						fillColor: 'orange',
 						fillOpacity: 0.3
 					});
 					layer.bindPopup(popup).closePopup();
@@ -166,12 +167,15 @@
 			}
 		}).addTo(map);
 
+	
+
 		function getRadius(area) {
 			var radius = Math.sqrt(area / Math.PI);
 			return radius * 2;
 		};
 	</script>
 
+	
 </body>
 
 </html>
