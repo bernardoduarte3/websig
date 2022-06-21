@@ -38,7 +38,7 @@
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
          }).addTo(map);
 	
-	L.control.scale({position:'bottomleft', metric: false}).addTo(map);
+	L.control.scale({position:'bottomleft', metric: true}).addTo(map);
 	
 	var north = L.control({position: "topright"});
     north.onAdd = function(map) {
